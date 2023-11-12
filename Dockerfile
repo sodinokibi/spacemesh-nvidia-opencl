@@ -34,10 +34,13 @@ ENV NVIDIA_VISIBLE_DEVICES all
 ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
 
 # Download and install postcli
-RUN curl -sSfL https://github.com/spacemeshos/post/releases/download/v0.10.1/postcli-Linux.zip -o postcli.zip && \
+RUN curl -sSfL https://github.com/spacemeshos/post/releases/download/v0.8.9/postcli-Linux.zip -o postcli.zip && \
     unzip postcli.zip && \
     chmod +x postcli && \
-    mv postcli /usr/local/bin/
+    mv postcli /usr/local/bin/ && \
+    # Move libpost.so to a standard library directory and update linker cache
+    mv libpost.so /usr/local/lib/ && \
+    ldconfig
 
 # Set default environment variables
 ENV PROVIDER=0 \
