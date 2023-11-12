@@ -53,15 +53,10 @@ ENV PROVIDER=0 \
 # Set the working directory to your DATADIR
 WORKDIR /home/user/post
 
-# Copy the entrypoint script
+
+# Copy the entrypoint script and make it executable
 COPY entrypoint.sh /entrypoint.sh
-# Make the entrypoint script executable
 RUN chmod +x /entrypoint.sh
-# Set the entrypoint
+
+# Set the entrypoint to run the script
 ENTRYPOINT ["/entrypoint.sh"]
-
-# Your entry point or command to run postcli
-ENTRYPOINT ["./entrypoint.sh"]
-
-# Set the default command
-CMD ["bash"]
