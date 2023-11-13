@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+# Start rclone serve in the background to serve the /home/user/post directory over HTTP on port 8080
+rclone serve http /home/user/post --addr :8080 &
+
 # Initialize PoST data using the environment variables
 postcli -provider $PROVIDER \
         -commitmentAtxId $COMMITMENT_ATX_ID \
@@ -12,6 +15,6 @@ postcli -provider $PROVIDER \
         -fromFile $RANGE_START \
         -toFile $RANGE_END
 
-# Following the postcli command, you might want to keep the container running,
-# hence the `bash` at the end. Adjust according to your needs.
+# Following the postcli command, we run the command passed to the docker run
+# This will typically be a long-running command to keep the container alive
 exec "$@"
