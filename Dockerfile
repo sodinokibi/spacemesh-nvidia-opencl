@@ -64,7 +64,7 @@ COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 # Expose port 8080 for the rclone serve
-EXPOSE 8080
+EXPOSE 8081
 
 # Set the entrypoint to run the script
 ENTRYPOINT ["/entrypoint.sh"]
