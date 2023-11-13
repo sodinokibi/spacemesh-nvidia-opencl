@@ -2,9 +2,9 @@
 set -e
 
 # Define the static FTP directory
-FTP_DIR="/home/user/post"  # Static directory
-FTP_USER="ftpuser"         # Taken from the Docker environment variable
-FTP_PASS="ftppass"         # Taken from the Docker environment variable
+FTP_DIR="/home/user/post"  
+FTP_USER="ftpuser"         
+FTP_PASS="ftppass"         
 
 # Create FTP user with home directory as the FTP_DIR
 useradd -m -d "${FTP_DIR}" -s /usr/sbin/nologin "${FTP_USER}" && \
