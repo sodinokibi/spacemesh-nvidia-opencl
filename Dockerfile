@@ -69,5 +69,4 @@ EXPOSE 8080
 # Set the entrypoint to run the script
 ENTRYPOINT ["/entrypoint.sh"]
 
-# Start rclone serve on container start
-CMD ["rclone", "serve", "http", "/home/user/post", "--addr", ":8080"]
+
