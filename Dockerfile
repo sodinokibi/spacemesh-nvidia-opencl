@@ -60,7 +60,7 @@ ENV PROVIDER=0 \
 WORKDIR /home/user/post
 
 # Accept the public key from an environment variable
-ARG PUBLIC_KEY
+ENV PUBLIC_KEY
 
 # Create the user directory and authorized_keys file
 RUN mkdir -p /root/.ssh && \
