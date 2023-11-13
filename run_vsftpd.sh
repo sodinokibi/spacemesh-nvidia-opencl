@@ -1,13 +1,11 @@
 #!/bin/bash
 set -e
 
-# Define the static FTP directory
-FTP_DIR="/home/user/post"  
-FTP_USER="ftpuser"         
-FTP_PASS="ftppass"         
+# Static FTP directory
+FTP_DIR="/home/user/post"
 
-# Create FTP user with home directory as the FTP_DIR
-useradd -m -d "${FTP_DIR}" -s /usr/sbin/nologin "${FTP_USER}" && \
+# Create FTP user with specified home directory
+useradd -d "${FTP_DIR}" -s /usr/sbin/nologin "${FTP_USER}" && \
 echo "${FTP_USER}:${FTP_PASS}" | chpasswd
 
 # Set permissions for the FTP directory
@@ -16,7 +14,7 @@ chown "${FTP_USER}":"${FTP_USER}" "${FTP_DIR}"
 # Create vsftpd.conf file
 cat << EOF > /etc/vsftpd.conf
 listen=YES
-listen_port=21  # Default FTP port
+listen_port=21
 anonymous_enable=NO
 local_enable=YES
 write_enable=YES
