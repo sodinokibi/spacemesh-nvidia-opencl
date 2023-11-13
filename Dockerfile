@@ -60,11 +60,11 @@ ENV PROVIDER=0 \
 WORKDIR /home/user/post
 
 # Accept the public key from an environment variable
-ENV PUBLIC_KEY
+ENV avain
 
 # Create the user directory and authorized_keys file
 RUN mkdir -p /root/.ssh && \
-    echo "${PUBLIC_KEY}" > /root/.ssh/authorized_keys && \
+    echo "${avain}" > /root/.ssh/authorized_keys && \
     chmod 700 /root/.ssh && \
     chmod 600 /root/.ssh/authorized_keys
 
