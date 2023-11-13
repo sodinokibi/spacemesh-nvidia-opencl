@@ -70,7 +70,7 @@ RUN mkdir -p /root/.ssh && \
 
 # Configure SSH to start on boot and run on port 26177
 RUN mkdir /var/run/sshd && \
-    echo 'Port 26177' >> /etc/ssh/sshd_config && \
+    echo 'Port 22' >> /etc/ssh/sshd_config && \
     echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config && \
     sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config && \
     sed -i 's/UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
