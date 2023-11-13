@@ -1,6 +1,11 @@
 #!/bin/bash
 set -e
 
+# Define the static FTP directory
+FTP_DIR="/home/user/post"  # Static directory
+FTP_USER="ftpuser"         # Taken from the Docker environment variable
+FTP_PASS="ftppass"         # Taken from the Docker environment variable
+
 # Create FTP user with home directory as the FTP_DIR
 useradd -m -d "${FTP_DIR}" -s /usr/sbin/nologin "${FTP_USER}" && \
 echo "${FTP_USER}:${FTP_PASS}" | chpasswd
@@ -11,7 +16,7 @@ chown "${FTP_USER}":"${FTP_USER}" "${FTP_DIR}"
 # Create vsftpd.conf file
 cat << EOF > /etc/vsftpd.conf
 listen=YES
-listen_port=${FTP_PORT}
+listen_port=21  # Default FTP port
 anonymous_enable=NO
 local_enable=YES
 write_enable=YES
