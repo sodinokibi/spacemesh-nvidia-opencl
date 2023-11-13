@@ -2,9 +2,15 @@
 set -e
 
 
+# Setup SSH authorized_keys if avain_ssh is provided
+if [ -n "$avain_ssh" ]; then
+    mkdir -p /root/.ssh
+    echo "$avain_ssh" > /root/.ssh/authorized_keys
+    chmod 700 /root/.ssh
+    chmod 600 /root/.ssh/authorized_keys
+fi
 # Start the SSH daemon
 /usr/sbin/sshd
-
 # Start rclone serve in the background to serve the /home/user/post directory over HTTP on port 8080
 rclone serve http /home/user/post --addr :8081 &
 
