@@ -60,7 +60,7 @@ ENV PROVIDER=0 \
 # Environment variables for the FTP server
 # IMPORTANT: Replace these with secure ways to handle credentials in production
 ENV FTP_USER=ftpuser \
-    FTP_PASS=ftppass \
+ENV FTP_PASS=ftppass \
 
 
 # Add a script that will run vsftpd
