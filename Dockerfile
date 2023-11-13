@@ -62,11 +62,6 @@ WORKDIR /home/user/post
 # Accept the public key from an environment variable
 ENV avain_ssh=pub
 
-# Create the user directory and authorized_keys file
-RUN mkdir -p /root/.ssh && \
-    echo "${avain_ssh}" > /root/.ssh/authorized_keys && \
-    chmod 700 /root/.ssh && \
-    chmod 600 /root/.ssh/authorized_keys
 
 # Configure SSH to start on boot and run on port 26177
 RUN mkdir /var/run/sshd && \
