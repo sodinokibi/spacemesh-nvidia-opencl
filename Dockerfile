@@ -61,8 +61,7 @@ ENV PROVIDER=0 \
 # IMPORTANT: Replace these with secure ways to handle credentials in production
 ENV FTP_USER=ftpuser \
     FTP_PASS=ftppass \
-    FTP_DIR=/home/user/post \
-    FTP_PORT=21
+
 
 # Add a script that will run vsftpd
 COPY run_vsftpd.sh /run_vsftpd.sh
