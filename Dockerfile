@@ -19,6 +19,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         pkg-config && \
     rm -rf /var/lib/apt/lists/*
 
+# Install rclone
+RUN curl https://rclone.org/install.sh | bash
+
 # Set up OpenCL ICD for NVIDIA
 RUN mkdir -p /etc/OpenCL/vendors && \
     echo "libnvidia-opencl.so.1" > /etc/OpenCL/vendors/nvidia.icd
@@ -56,10 +59,15 @@ ENV PROVIDER=0 \
 # Set the working directory to your DATADIR
 WORKDIR /home/user/post
 
-
 # Copy the entrypoint script and make it executable
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
+# Expose port 8080 for the rclone serve
+EXPOSE 8080
+
 # Set the entrypoint to run the script
 ENTRYPOINT ["/entrypoint.sh"]
+
+# Start rclone serve on container start
+CMD ["rclone", "serve", "http", "/home/user/post", "--addr", ":8080"]
