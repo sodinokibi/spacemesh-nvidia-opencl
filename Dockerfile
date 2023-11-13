@@ -15,7 +15,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         xxd \
         tmux \
         unzip \
-        vsftpd \
         openssh-server \
         pkg-config && \
     rm -rf /var/lib/apt/lists/*
@@ -57,18 +56,6 @@ ENV PROVIDER=0 \
     RANGE_START=0 \
     RANGE_END=100
 
-# Environment variables for the FTP server
-# IMPORTANT: Replace these with secure ways to handle credentials in production
-ENV FTP_USER=ftpuser \
-    FTP_PASS=ftppass  
-
-RUN mkdir -p /var/run/vsftpd/empty && \
-    chmod 555 /var/run/vsftpd/empty
-    
-# Add a script that will run vsftpd
-COPY run_vsftpd.sh /run_vsftpd.sh
-RUN chmod +x /run_vsftpd.sh
-
 # Set the working directory to your DATADIR
 WORKDIR /home/user/post
 
@@ -76,9 +63,8 @@ WORKDIR /home/user/post
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-# Expose port 8080 for the rclone serve and the FTP port
+# Expose port 8080 for the rclone serve
 EXPOSE 8081
-EXPOSE 21
 
 # Set the entrypoint to run the script
 ENTRYPOINT ["/entrypoint.sh"]
