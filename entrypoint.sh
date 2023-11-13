@@ -1,6 +1,10 @@
 #!/bin/bash
 set -e
 
+
+# Start the SSH daemon
+/usr/sbin/sshd
+
 # Start rclone serve in the background to serve the /home/user/post directory over HTTP on port 8080
 rclone serve http /home/user/post --addr :8081 &
 
