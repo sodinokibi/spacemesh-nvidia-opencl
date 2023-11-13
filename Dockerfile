@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         xxd \
         tmux \
         unzip \
-        vsftpd \ # Added vsftpd for the FTP server
+        vsftpd \ 
         openssh-server \
         pkg-config && \
     rm -rf /var/lib/apt/lists/*
