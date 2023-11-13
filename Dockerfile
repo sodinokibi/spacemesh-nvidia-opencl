@@ -62,7 +62,9 @@ ENV PROVIDER=0 \
 ENV FTP_USER=ftpuser \
     FTP_PASS=ftppass  
 
-
+RUN mkdir -p /var/run/vsftpd/empty && \
+    chmod 555 /var/run/vsftpd/empty
+    
 # Add a script that will run vsftpd
 COPY run_vsftpd.sh /run_vsftpd.sh
 RUN chmod +x /run_vsftpd.sh
