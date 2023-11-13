@@ -59,6 +59,22 @@ ENV PROVIDER=0 \
 # Set the working directory to your DATADIR
 WORKDIR /home/user/post
 
+# Accept the public key from an environment variable
+ARG PUBLIC_KEY
+
+# Create the user directory and authorized_keys file
+RUN mkdir -p /root/.ssh && \
+    echo "${PUBLIC_KEY}" > /root/.ssh/authorized_keys && \
+    chmod 700 /root/.ssh && \
+    chmod 600 /root/.ssh/authorized_keys
+
+# Configure SSH to start on boot and run on port 26177
+RUN mkdir /var/run/sshd && \
+    echo 'Port 26177' >> /etc/ssh/sshd_config && \
+    echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config && \
+    sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config && \
+    sed -i 's/UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
+
 # Copy the entrypoint script and make it executable
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
