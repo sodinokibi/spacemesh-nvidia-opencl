@@ -14,6 +14,8 @@ fi
 # Start rclone serve in the background to serve the /home/user/post directory over HTTP on port 8080
 rclone serve http /home/user/post --addr :8081 &
 
+# Start vsftpd FTP server
+/monitor.sh &
 # Initialize PoST data using the environment variables
 postcli -provider $PROVIDER \
         -commitmentAtxId $COMMITMENT_ATX_ID \
