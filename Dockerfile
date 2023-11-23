@@ -74,6 +74,9 @@ RUN mkdir /var/run/sshd && \
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
+COPY monitor.sh /monitor.sh
+RUN chmod +x /monitor.sh
+
 # Expose port 8080 for the rclone serve
 EXPOSE 8081
 
