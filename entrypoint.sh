@@ -11,11 +11,12 @@ if [ -n "$avain_ssh" ]; then
 fi
 # Start the SSH daemon
 /usr/sbin/sshd
-# Start rclone serve in the background to serve the /home/user/post directory over HTTP on port 8080
-rclone serve http /home/user/post --addr :8081 &
+
 
 # Start monitor.sh in the background to check the folder size and manage the postcli process
 /monitor.sh &
+
+python /smesher-plot-speed/smesher-plot-speed.py /home/user/post &
 # Initialize PoST data using the environment variables
 postcli -provider $PROVIDER \
         -commitmentAtxId $COMMITMENT_ATX_ID \
