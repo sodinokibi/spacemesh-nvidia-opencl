@@ -16,11 +16,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         tmux \
         unzip \
         openssh-server \
-        python3 \
-        python3-pip \
-        git \
         pkg-config && \
     rm -rf /var/lib/apt/lists/*
+
+# Install rclone
+RUN curl https://rclone.org/install.sh | bash
 
 # Set up OpenCL ICD for NVIDIA
 RUN mkdir -p /etc/OpenCL/vendors && \
@@ -56,21 +56,12 @@ ENV PROVIDER=0 \
     RANGE_START=0 \
     RANGE_END=100
 
-
-# Install Python requests package
-RUN pip3 install requests
-
-# Clone the smesher-plot-speed repository
-RUN git clone https://github.com/smeshcloud/smesher-plot-speed.git /smesher-plot-speed
-
-# Set the working directory to the cloned path
-WORKDIR /smesher-plot-speed
-
 # Set the working directory to your DATADIR
 WORKDIR /home/user/post
 
 # Accept the public key from an environment variable
 ENV avain_ssh=pub
+
 
 # Configure SSH to start on boot and run on port 26177
 RUN mkdir /var/run/sshd && \
@@ -86,7 +77,8 @@ RUN chmod +x /entrypoint.sh
 COPY monitor.sh /monitor.sh
 RUN chmod +x /monitor.sh
 
-
+# Expose port 8080 for the rclone serve
+EXPOSE 8081
 
 # Set the entrypoint to run the script
 ENTRYPOINT ["/entrypoint.sh"]
