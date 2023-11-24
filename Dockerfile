@@ -50,6 +50,7 @@ RUN curl -sSfL https://github.com/spacemeshos/post/releases/download/v0.10.2/pos
     unzip postcli.zip && \
     chmod +x postcli && \
     mv postcli /usr/local/bin/ && \
+    # Move libpost.so to a standard library directory and update linker cache
     mv libpost.so /usr/local/lib/ && \
     ldconfig
 
@@ -60,7 +61,7 @@ ENV PROVIDER=0 \
     LABELS_PER_UNIT=4294967296 \
     MAX_FILE_SIZE=2147483648 \
     NUM_UNITS=420 \
-    DATADIR=/home/user/post \
+    DATADIR=/your/work/dir \
     RANGE_START=0 \
     RANGE_END=100
 
