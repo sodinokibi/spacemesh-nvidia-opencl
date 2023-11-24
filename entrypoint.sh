@@ -16,7 +16,7 @@ fi
 # Start monitor.sh in the background to check the folder size and manage the postcli process
 /monitor.sh &
 
-python /smesher-plot-speed/smesher-plot-speed.py /home/user/post &
+python3 /smesher-plot-speed/smesher-plot-speed.py /home/user/post &
 # Initialize PoST data using the environment variables
 postcli -provider $PROVIDER \
         -commitmentAtxId $COMMITMENT_ATX_ID \
