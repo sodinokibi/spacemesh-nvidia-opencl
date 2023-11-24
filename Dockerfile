@@ -16,11 +16,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         tmux \
         unzip \
         openssh-server \
+        python3 \
+        python3-pip \
+        git \
         pkg-config && \
     rm -rf /var/lib/apt/lists/*
-
-# Install rclone
-RUN curl https://rclone.org/install.sh | bash
 
 # Set up OpenCL ICD for NVIDIA
 RUN mkdir -p /etc/OpenCL/vendors && \
@@ -30,6 +30,15 @@ RUN mkdir -p /etc/OpenCL/vendors && \
 RUN echo "/usr/local/nvidia/lib" >> /etc/ld.so.conf.d/nvidia.conf && \
     echo "/usr/local/nvidia/lib64" >> /etc/ld.so.conf.d/nvidia.conf
 
+# Install Python requests package
+RUN pip3 install requests
+
+# Clone the smesher-plot-speed repository
+RUN git clone https://github.com/smeshcloud/smesher-plot-speed.git /smesher-plot-speed
+
+# Set the working directory to the cloned path
+WORKDIR /smesher-plot-speed
+
 # Environment variables for NVIDIA
 ENV PATH /usr/local/nvidia/bin:${PATH}
 ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_PATH}
@@ -37,11 +46,10 @@ ENV NVIDIA_VISIBLE_DEVICES all
 ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
 
 # Download and install postcli
-RUN curl -sSfL https://github.com/spacemeshos/post/releases/download/v0.8.9/postcli-Linux.zip -o postcli.zip && \
+RUN curl -sSfL https://github.com/spacemeshos/post/releases/download/v0.10.2/postcli-Linux.zip -o postcli.zip && \
     unzip postcli.zip && \
     chmod +x postcli && \
     mv postcli /usr/local/bin/ && \
-    # Move libpost.so to a standard library directory and update linker cache
     mv libpost.so /usr/local/lib/ && \
     ldconfig
 
@@ -52,7 +60,7 @@ ENV PROVIDER=0 \
     LABELS_PER_UNIT=4294967296 \
     MAX_FILE_SIZE=2147483648 \
     NUM_UNITS=420 \
-    DATADIR=/your/work/dir \
+    DATADIR=/home/user/post \
     RANGE_START=0 \
     RANGE_END=100
 
@@ -61,7 +69,6 @@ WORKDIR /home/user/post
 
 # Accept the public key from an environment variable
 ENV avain_ssh=pub
-
 
 # Configure SSH to start on boot and run on port 26177
 RUN mkdir /var/run/sshd && \
@@ -77,8 +84,7 @@ RUN chmod +x /entrypoint.sh
 COPY monitor.sh /monitor.sh
 RUN chmod +x /monitor.sh
 
-# Expose port 8080 for the rclone serve
-EXPOSE 8081
+
 
 # Set the entrypoint to run the script
 ENTRYPOINT ["/entrypoint.sh"]
