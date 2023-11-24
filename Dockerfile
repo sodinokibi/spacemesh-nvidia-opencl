@@ -30,15 +30,6 @@ RUN mkdir -p /etc/OpenCL/vendors && \
 RUN echo "/usr/local/nvidia/lib" >> /etc/ld.so.conf.d/nvidia.conf && \
     echo "/usr/local/nvidia/lib64" >> /etc/ld.so.conf.d/nvidia.conf
 
-# Install Python requests package
-RUN pip3 install requests
-
-# Clone the smesher-plot-speed repository
-RUN git clone https://github.com/smeshcloud/smesher-plot-speed.git /smesher-plot-speed
-
-# Set the working directory to the cloned path
-WORKDIR /smesher-plot-speed
-
 # Environment variables for NVIDIA
 ENV PATH /usr/local/nvidia/bin:${PATH}
 ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_PATH}
@@ -64,6 +55,16 @@ ENV PROVIDER=0 \
     DATADIR=/your/work/dir \
     RANGE_START=0 \
     RANGE_END=100
+
+
+# Install Python requests package
+RUN pip3 install requests
+
+# Clone the smesher-plot-speed repository
+RUN git clone https://github.com/smeshcloud/smesher-plot-speed.git /smesher-plot-speed
+
+# Set the working directory to the cloned path
+WORKDIR /smesher-plot-speed
 
 # Set the working directory to your DATADIR
 WORKDIR /home/user/post
