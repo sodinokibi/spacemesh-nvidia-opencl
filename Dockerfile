@@ -1,5 +1,5 @@
 # Use the official NVIDIA CUDA image as a base if you need CUDA
-FROM nvidia/cuda:12.0.0-devel-ubuntu22.04
+FROM nvidia/cuda:12.2.0-devel-ubuntu22.04
 
 # Label the image
 LABEL com.nvidia.volumes.needed="nvidia_driver"
