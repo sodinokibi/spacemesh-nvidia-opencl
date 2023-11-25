@@ -1,5 +1,5 @@
 # Use the official NVIDIA CUDA image as a base if you need CUDA
-FROM nvidia/cuda:12.2.0-devel-ubuntu22.04
+FROM nvidia/cuda:12.0.0-devel-ubuntu22.04
 
 # Label the image
 LABEL com.nvidia.volumes.needed="nvidia_driver"
@@ -37,7 +37,7 @@ ENV NVIDIA_VISIBLE_DEVICES all
 ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
 
 # Download and install postcli
-RUN curl -sSfL https://github.com/spacemeshos/post/releases/download/v0.10.2/postcli-Linux.zip -o postcli.zip && \
+RUN curl -sSfL https://github.com/spacemeshos/post/releases/download/v0.8.9/postcli-Linux.zip -o postcli.zip && \
     unzip postcli.zip && \
     chmod +x postcli && \
     mv postcli /usr/local/bin/ && \
