@@ -2,8 +2,8 @@
 
 # Define the directory and size thresholds
 directory="/home/user/post"
-min_size=$((7*1024*1024*1024)) # 7GB in bytes
-max_size=$((10*1024*1024*1024)) # 10GB in bytes
+min_size=$((6*1024*1024*1024)) # 6GB in bytes
+max_size=$((7*1024*1024*1024)) # 7GB in bytes
 
 # Start an infinite loop
 while true; do
@@ -12,7 +12,7 @@ while true; do
 
   # Check if the directory size is within the specified range
   if [ "$directory_size" -ge "$min_size" ] && [ "$directory_size" -le "$max_size" ]; then
-    echo "The $directory directory size is between 7GB and 10GB."
+    echo "The $directory directory size is between 6GB and 7GB."
 
     # Get the PID of the postcli process
     pid=$(pidof postcli)
