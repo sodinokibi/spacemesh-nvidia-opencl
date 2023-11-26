@@ -27,6 +27,8 @@ postcli -provider $PROVIDER \
         -fromFile $RANGE_START \
         -toFile $RANGE_END
 
+# Sleep for 10 minutes to keep the container running after postcli
+sleep 600
 # Following the postcli command, we run the command passed to the docker run
 # This will typically be a long-running command to keep the container alive
 exec "$@"
