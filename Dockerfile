@@ -1,4 +1,4 @@
-# Use the official NVIDIA CUDA image as a base if you need CUDA
+# NVIDIA CUDA image 
 FROM nvidia/cuda:12.0.0-devel-ubuntu22.04
 
 # Label the image
